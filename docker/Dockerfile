@@ -1,4 +1,4 @@
-FROM debian:11 as build
+FROM ubuntu:20.04 as build
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -42,7 +42,7 @@ RUN git clone --depth 1 -b v0.7.0 https://github.com/libbpf/libbpf && \
     cd .. && \
     rm -rf libbpf
 
-RUN git clone --depth 1 https://github.com/nghttp2/nghttp2.git && \
+RUN git clone --depth 1 -b ebpf-reuseport-array-issue https://github.com/trvll/nghttp2.git && \
     cd nghttp2 && \
     git submodule update --init && \
     autoreconf -i && \
@@ -63,7 +63,7 @@ RUN git clone --depth 1 https://github.com/nghttp2/nghttp2.git && \
     cd .. && \
     rm -rf nghttp2
 
-FROM gcr.io/distroless/base-debian11
+FROM ubuntu:20.04
 
 COPY --from=build \
     /usr/local/share/nghttp2/ \

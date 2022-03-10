@@ -433,7 +433,7 @@ struct {
 struct {
   __uint(type, BPF_MAP_TYPE_REUSEPORT_SOCKARRAY);
   __uint(max_entries, 255);
-  __type(key, __u32);
+  __type(key, __u64);
   __type(value, __u32);
 } reuseport_array SEC(".maps");
 
